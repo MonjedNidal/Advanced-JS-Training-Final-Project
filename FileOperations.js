@@ -8,7 +8,14 @@ export function readFile() {
         reject(err);
         return;
       }
-      const catalog = JSON.parse(data);
+      let catalog;
+      try {
+        catalog = JSON.parse(data);
+      } catch (error) {
+        console.error("Please Try again");
+        reject(error);
+        return;
+      }
       resolve(catalog);
     });
   });

@@ -1,4 +1,5 @@
 import { writeInTheFile, readFile } from "./FileOperations.js";
+import { printMovie } from "./Main.js";
 import Prompt from "prompt-sync";
 const input = Prompt();
 
@@ -12,6 +13,12 @@ export async function addMovie(movie) {
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function viewCatalog(catalog) {
+  catalog.forEach((movie) => {
+    printMovie(movie);
+  });
 }
 
 export async function updateMovie() {
@@ -72,7 +79,7 @@ export async function searchCatalog() {
       if (result1) {
         console.log("-----------------------");
 
-        console.log("Search Result : ");
+        console.log("Search Result");
         viewCatalog(result1);
       } else {
         console.log("No Movies found");
@@ -89,7 +96,7 @@ export async function searchCatalog() {
       if (result2) {
         console.log("-----------------------");
 
-        console.log("Search Result : ");
+        console.log("Search Result");
         viewCatalog(result2);
       } else {
         console.log("No Movies found");
@@ -106,7 +113,7 @@ export async function searchCatalog() {
       if (result3) {
         console.log("-----------------------");
 
-        console.log("Search Result : ");
+        console.log("Search Result");
 
         viewCatalog(result3);
       } else {
@@ -120,7 +127,7 @@ export async function searchCatalog() {
       });
       if (result4) {
         console.log("-----------------------");
-        console.log("Search Result : ");
+        console.log("Search Result");
         viewCatalog(result4);
       } else {
         console.log("No Movies found");

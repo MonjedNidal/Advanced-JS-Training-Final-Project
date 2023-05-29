@@ -1,17 +1,17 @@
 import Prompt from "prompt-sync";
 import { readFile } from "./FileOperations.js";
+import { handleApiSearch } from "./ApiRequests.js";
 import {
   addMovie,
   updateMovie,
   deleteMovie,
   searchCatalog,
+  viewCatalog,
 } from "./MoviesManagement.js";
 
 let input = Prompt();
 
-// TODO Fetch Movie Data: Utilize the Fetch API to make HTTP requests to a movie database API (such as OMDB API) to fetch additional movies from the API and store it in the JSON file.
-
-const firstScreen = () => {
+const mainMenu = () => {
   console.log("-----------------------");
   console.log("Welcome to Movie Catalog");
   console.log("-----------------------");
@@ -21,6 +21,7 @@ const firstScreen = () => {
   console.log("3. Update a Movie");
   console.log("4. Delete a Movie");
   console.log("5. Search for a Movie");
+  console.log("6. Search for a Movie by OMDb API");
   console.log("Anything else to exit.");
   console.log("-----------------------");
   let option = input("Option: ");
@@ -43,24 +44,22 @@ function handleMovieInput() {
   return movie;
 }
 
-function viewCatalog(catalog) {
-  catalog.forEach((movie) => {
-    console.log("-----------------------");
-    console.log("Movie Id: " + movie.id);
-    console.log("Movie Title: " + movie.title);
-    console.log("Movie Year: " + movie.releaseYear);
-    console.log("Movie Genre: " + movie.genre);
-    console.log("Movie Director: " + movie.director);
-  });
+export function printMovie(movie) {
+  console.log("-----------------------");
+  console.log("Movie Id: " + movie.id);
+  console.log("Movie Title: " + movie.title);
+  console.log("Movie Year: " + movie.releaseYear);
+  console.log("Movie Genre: " + movie.genre);
+  console.log("Movie Director: " + movie.director);
 }
 
 async function main() {
   while (true) {
-    let option = firstScreen();
+    let option = mainMenu();
     switch (option) {
       case "1":
         const catalog = await readFile();
-        viewCatalog(catalog);
+        await viewCatalog(catalog);
         break;
       case "2":
         const movie = handleMovieInput();
@@ -74,6 +73,9 @@ async function main() {
         break;
       case "5":
         await searchCatalog();
+        break;
+      case "6":
+        await handleApiSearch();
         break;
       default:
         return;
