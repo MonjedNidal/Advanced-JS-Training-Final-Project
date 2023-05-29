@@ -1,12 +1,4 @@
-export function writeInTheFile(array) {
-  const jsonData = JSON.stringify(array);
-  fs.writeFile("./data/data.json", jsonData, "utf8", (err) => {
-    if (err) {
-      console.error("Error writing file:", err);
-      return;
-    }
-  });
-}
+import fs from "fs";
 
 export function readFile() {
   return new Promise((resolve, reject) => {
@@ -19,5 +11,15 @@ export function readFile() {
       const catalog = JSON.parse(data);
       resolve(catalog);
     });
+  });
+}
+
+export function writeInTheFile(array) {
+  const jsonData = JSON.stringify(array);
+  fs.writeFile("./data/data.json", jsonData, "utf8", (err) => {
+    if (err) {
+      console.error("Error writing file:", err);
+      return;
+    }
   });
 }
