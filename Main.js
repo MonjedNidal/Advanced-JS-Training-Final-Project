@@ -1,8 +1,15 @@
 import Prompt from "prompt-sync";
 import { readFile } from "./FileOperations.js";
-import { addMovie, updateMovie, deleteMovie } from "./MoviesOperations.js";
+import {
+  addMovie,
+  updateMovie,
+  deleteMovie,
+  searchCatalog,
+} from "./MoviesManagement.js";
 
 let input = Prompt();
+
+// TODO Fetch Movie Data: Utilize the Fetch API to make HTTP requests to a movie database API (such as OMDB API) to fetch additional movies from the API and store it in the JSON file.
 
 const firstScreen = () => {
   console.log("-----------------------");
@@ -13,6 +20,7 @@ const firstScreen = () => {
   console.log("2. Add a Movie");
   console.log("3. Update a Movie");
   console.log("4. Delete a Movie");
+  console.log("5. Search for a Movie");
   console.log("Anything else to exit.");
   console.log("-----------------------");
   let option = input("Option: ");
@@ -39,7 +47,7 @@ function viewCatalog(catalog) {
   catalog.forEach((movie) => {
     console.log("-----------------------");
     console.log("Movie Id: " + movie.id);
-    console.log("Movie Name: " + movie.title);
+    console.log("Movie Title: " + movie.title);
     console.log("Movie Year: " + movie.releaseYear);
     console.log("Movie Genre: " + movie.genre);
     console.log("Movie Director: " + movie.director);
@@ -63,6 +71,9 @@ async function main() {
         break;
       case "4":
         await deleteMovie();
+        break;
+      case "5":
+        await searchCatalog();
         break;
       default:
         return;
