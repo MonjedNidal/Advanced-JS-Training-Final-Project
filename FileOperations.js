@@ -14,14 +14,14 @@ export function readFile() {
       } catch (error) {
         console.error("Please Try again");
         reject(error);
-        return;
+        return readFile();
       }
       resolve(catalog);
     });
   });
 }
 
-export function writeInTheFile(array) {
+export async function writeInTheFile(array) {
   const jsonData = JSON.stringify(array);
   fs.writeFile("./data/data.json", jsonData, "utf8", (err) => {
     if (err) {

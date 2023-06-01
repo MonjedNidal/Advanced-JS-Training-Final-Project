@@ -33,8 +33,9 @@ export async function updateMovie() {
       movie.releaseYear = input("Enter new release year : ");
     } else {
       console.log("Movie not found");
+      return;
     }
-    writeInTheFile(catalog);
+    await writeInTheFile(catalog);
     console.log("Movie updated successfully");
   } catch (error) {
     console.log(error);
